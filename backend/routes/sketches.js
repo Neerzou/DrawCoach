@@ -106,6 +106,9 @@ Sois encourageant, précis et constructif. Réponds UNIQUEMENT avec le JSON, san
     res.json({ feedback, saved: !dbError })
   } catch (err) {
     console.error('=== ERREUR UPLOAD ===', err.message)
+    if (err.status === 529) {
+      return res.status(503).json({ error: "L'IA est temporairement surchargée. Réessaie dans quelques secondes." })
+    }
     res.status(500).json({ error: "Erreur lors du traitement de l'image" })
   }
 })

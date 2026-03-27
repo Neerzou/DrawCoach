@@ -39,8 +39,8 @@ function SketchUpload() {
     try {
       const result = await uploadSketch(file, id)
       setFeedback(result.feedback)
-    } catch {
-      setError("Erreur lors de l'analyse. Réessaie.")
+    } catch (err) {
+      setError(err.message || "Erreur lors de l'analyse. Réessaie.")
     } finally {
       setLoading(false)
     }

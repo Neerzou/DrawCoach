@@ -49,6 +49,9 @@ export async function uploadSketch(file, lessonId) {
     headers, // pas de Content-Type : le navigateur le gère automatiquement avec FormData
     body: formData,
   })
-  if (!res.ok) throw new Error("Erreur lors de l'upload")
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || "Erreur lors de l'upload")
+  }
   return res.json()
 }
