@@ -13,6 +13,7 @@ import LessonDetail from './pages/LessonDetail'
 import Progress from './pages/Progress'
 import Profile from './pages/Profile'
 import Upgrade from './pages/Upgrade'
+import SketchUpload from './pages/SketchUpload'
 
 // Composant de route protégée
 import PrivateRoute from './components/PrivateRoute'
@@ -34,6 +35,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/lessons/:id" element={<LessonDetail />} />
+          <Route path="/lessons/:id/upload" element={<SketchUpload />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/upgrade" element={<Upgrade />} />

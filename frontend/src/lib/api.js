@@ -14,7 +14,8 @@ export async function fetchLessons() {
   const headers = await getAuthHeaders()
   const res = await fetch(`${API_URL}/api/lessons`, { headers })
   if (!res.ok) throw new Error('Erreur lors du chargement des leçons')
-  return res.json()
+  const data = await res.json()
+  return Array.isArray(data) ? data : []
 }
 
 // Récupérer une leçon par ID
@@ -33,5 +34,21 @@ export async function completeLesson(id) {
     headers,
   })
   if (!res.ok) throw new Error('Erreur lors de la complétion')
+  return res.json()
+}
+
+// Uploader un croquis et obtenir un feedback IA
+export async function uploadSketch(file, lessonId) {
+  const headers = await getAuthHeaders()
+  const formData = new FormData()
+  formData.append('sketch', file)
+  formData.append('lesson_id', lessonId)
+
+  const res = await fetch(`${API_URL}/api/sketches/upload`, {
+    method: 'POST',
+    headers, // pas de Content-Type : le navigateur le gère automatiquement avec FormData
+    body: formData,
+  })
+  if (!res.ok) throw new Error("Erreur lors de l'upload")
   return res.json()
 }

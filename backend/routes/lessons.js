@@ -2,25 +2,28 @@ const express = require('express')
 const router = express.Router()
 const { getLessons, getLessonById, completeLesson } = require('../controllers/lessonsController')
 const { requireAuth } = require('../middleware/auth')
+const { supabase } = require('../lib/supabase')
+
+// Middleware d'auth optionnelle : tente de récupérer l'utilisateur sans bloquer
+async function optionalAuth(req, res, next) {
+  const authHeader = req.headers.authorization
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.split(' ')[1]
+    try {
+      const { data: { user } } = await supabase.auth.getUser(token)
+      req.user = user || null
+    } catch {
+      req.user = null
+    }
+  }
+  next()
+}
 
 // Récupérer toutes les leçons (auth optionnelle pour afficher la progression)
-router.get('/', (req, res, next) => {
-  // Tenter d'authentifier sans bloquer si pas de token
-  const authHeader = req.headers.authorization
-  if (authHeader) {
-    return requireAuth(req, res, () => getLessons(req, res))
-  }
-  getLessons(req, res)
-})
+router.get('/', optionalAuth, getLessons)
 
 // Récupérer une leçon par ID (auth optionnelle)
-router.get('/:id', (req, res, next) => {
-  const authHeader = req.headers.authorization
-  if (authHeader) {
-    return requireAuth(req, res, () => getLessonById(req, res))
-  }
-  getLessonById(req, res)
-})
+router.get('/:id', optionalAuth, getLessonById)
 
 // Marquer une leçon comme complétée (auth obligatoire)
 router.post('/:id/complete', requireAuth, completeLesson)
