@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useAuthListener } from './hooks/useAuth'
 
 // Pages publiques
 import Home from './pages/Home'
@@ -13,10 +14,13 @@ import Progress from './pages/Progress'
 import Profile from './pages/Profile'
 import Upgrade from './pages/Upgrade'
 
-// Composant de route protégée (à compléter avec l'auth Supabase à l'étape 2)
+// Composant de route protégée
 import PrivateRoute from './components/PrivateRoute'
 
 function App() {
+  // Écouter les changements d'authentification Supabase
+  useAuthListener()
+
   return (
     <BrowserRouter>
       <Routes>
