@@ -1,0 +1,37 @@
+{
+  "app": {
+    "name": "DrawCoach",
+    "slogan": "YouTube explique. DrawCoach te dit ce que TU as raté."
+  },
+  "nav": {
+    "lessons": "Leçons",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "logout": "Déconnexion"
+  },
+  "home": {
+    "hero_title": "Apprends à dessiner en 10 minutes par jour",
+    "hero_subtitle": "Des leçons courtes, un feedback IA personnalisé sur chaque croquis.",
+    "cta_start": "Commencer gratuitement",
+    "cta_pro": "Passer Pro"
+  },
+  "lessons": {
+    "minutes": "min",
+    "start": "Commencer la leçon",
+    "continue": "Continuer",
+    "completed": "Terminée",
+    "locked": "Verrouillée"
+  },
+  "feedback": {
+    "proportions": "Proportions",
+    "lines": "Qualité des lignes",
+    "shading": "Ombrage et lumière",
+    "composition": "Composition générale"
+  },
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer.",
+    "not_found": "Page introuvable."
+  }
+}
